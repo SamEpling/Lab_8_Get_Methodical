@@ -111,5 +111,36 @@ public class SafeInput
 
         return value;
     }
+    /**
+     * gets an double val from the user with a range
+     * @param pipe Scanner to use for the input
+     * @param prompt msg to user for what to enter
+     * @param low the bottom value for the inclusive range
+     * @param high the top value for the inclusive range
+     * @return a double within the range
+     */
+    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high) {
+        boolean done = false;
+        String trash = "";
+        double value = 0;
+        do {
+            System.out.print(prompt + " [" + low + " - " + high + "]: ");
+            if (pipe.hasNextDouble()) {
+                value = pipe.nextDouble();
+                pipe.nextLine();
+                if (value >= low && value <= high) {
+                    done = true;
+                }
+                else {
+                    System.out.println("\nYou must enter a value within the range [" + low + " - " + high + "]");
+                }
+            }
+            else {
+                trash = pipe.nextLine();
+                System.out.println("\nYou must enter a number. You entered: " + trash);
+            }
+        }while (!done);
 
+        return value;
+    }
 }
